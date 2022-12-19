@@ -145,7 +145,7 @@ public class Login extends AppCompatActivity {
                                 for (int i=0;i<json_datos_usuario.length();i++){
                                     JSONObject jsonObject = json_datos_usuario.getJSONObject(i);
                                     //Log.e("nombreMovies", String.valueOf(jsonObject));
-                                    /*String strId = jsonObject.getString("id");
+                                    String strId = jsonObject.getString("id");
                                     String strNombre= jsonObject.getString("nombre");
                                     String strContrasena= jsonObject.getString("contrasena");
                                     String strFecha_registro=jsonObject.getString("fecha_registro");
@@ -184,9 +184,8 @@ public class Login extends AppCompatActivity {
                                     Log.e("10",strFireCode);
                                     Log.e("11",strIdSesion);
 
-
                                     Intent intent = new Intent(Login.this, Estacion.class);
-                                    startActivity(intent);*/
+                                    startActivity(intent);
 
 
 

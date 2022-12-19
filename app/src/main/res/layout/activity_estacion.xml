@@ -1,9 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Estacion">
+    tools:context=".Estacion"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:id="@+id/caja_lista_pedidos_recycler"
+        android:visibility="visible"
+        >
+
+        <LinearLayout
+            android:id="@+id/caja_recycler_pedidos"
+
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lista_pedidos_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:id="@+id/caja_lista_espera_recycler"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lista_espera_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:gravity="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+
+                android:gravity="center"
+
+                >
+                <TextView
+                    android:layout_width="55dp"
+                    android:background="@drawable/perfil"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/caja_lista_pedidos"
+
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="55dp"
+                    android:background="@drawable/pedidolisto"
+                    android:gravity="center"
+
+                    android:layout_height="55dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/caja_pedidos_espera_l"
+
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:layout_margin="6dp"
+                android:gravity="center"
+
+                >
+                <TextView
+                    android:layout_width="55dp"
+                    android:background="@drawable/pedidoespera"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_margin="6dp"
+            android:gravity="center"
+
+            >
+            <TextView
+                android:layout_width="55dp"
+                android:background="@drawable/perfil"
+                android:layout_height="55dp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/caja_pedido_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="50dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contenido_pedido"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+
+                android:textColor="@color/black"
+                android:textSize="30dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/white"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/confirmar_mecero"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_margin="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde"
+                android:gravity="center"
+
+                android:textColor="@color/black"
+                android:textSize="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/caja_velo_mecero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:gravity="center"
+            android:alpha="0.6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/caja_confirmar_mecero"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/white"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:id="@+id/texto_asignador"
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/borde"
+                    android:gravity="center"
+                    android:text="Estas seguro de enviar el pedido"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/confirmar_si"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:layout_margin="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde"
+                android:gravity="center"
+                android:text="Si"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+            <TextView
+                android:id="@+id/confirmar_no"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:layout_margin="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde"
+                android:gravity="center"
+                android:text="no"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
