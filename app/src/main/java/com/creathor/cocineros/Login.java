@@ -230,8 +230,8 @@ public class Login extends AppCompatActivity {
         {
 
             Log.e("idSesion",strInicio);
-       /*     Intent agenda= new Intent(Login.this, Estacion.class);
-            startActivity(agenda);*/
+            Intent agenda= new Intent(Login.this, Estacion.class);
+            startActivity(agenda);
         }
     }
     public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {

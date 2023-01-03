@@ -15,12 +15,12 @@
         android:layout_height="match_parent"
         android:gravity="top"
         android:orientation="vertical"
-        android:id="@+id/caja_lista_pedidos_recycler"
+        android:id="@+id/caja_cocina_pedidos_recycler"
         android:visibility="visible"
         >
 
         <LinearLayout
-            android:id="@+id/caja_recycler_pedidos"
+            android:id="@+id/caja_recycler_cocina"
 
             android:layout_width="match_parent"
             android:layout_height="650dp"
@@ -35,7 +35,7 @@
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/lista_pedidos_recycler"
+                    android:id="@+id/lista_cocina_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -150,7 +150,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/caja_pedido_cliente"
+        android:id="@+id/caja_detalle_pedido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="top"
@@ -169,7 +169,7 @@
             android:layout_marginBottom="50dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/contenido_pedido"
+                android:id="@+id/contenido_pedido_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
