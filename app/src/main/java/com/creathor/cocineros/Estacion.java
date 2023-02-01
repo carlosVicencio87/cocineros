@@ -64,10 +64,9 @@ public class Estacion extends AppCompatActivity {
         activity = this;
         context=this;
         SERVIDOR_CONTROLADOR = new Servidor().getIplocal();
-
-        listaPedidosCocinaRecyclers=new ArrayList<>();
-        lista_cocina_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
         listaContenidoPedidos=new ArrayList<>();
+        lista_cocina_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
+        listaPedidosCocinaRecyclers=new ArrayList<>();
         contenido_pedido_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
 
         id_SesionSher=getSharedPreferences("Usuario",this.MODE_PRIVATE);
@@ -98,6 +97,7 @@ public class Estacion extends AppCompatActivity {
                            json_pedidos_cocina=new JSONArray(response);
                            for (int i=0;i<json_pedidos_cocina.length();i++){
                                JSONObject jsonObject = json_pedidos_cocina.getJSONObject(i);
+                               Log.e("nombreMocontenidovies", String.valueOf(jsonObject));
 
                                //Log.e("nombreMovies", String.valueOf(jsonObject));
 
@@ -111,21 +111,37 @@ public class Estacion extends AppCompatActivity {
 
                                String strEstado=jsonObject.getString("estado");
                                strContenido=jsonObject.getString("contenido");
-                               strNotaMesero=jsonObject.getString("nota_mesero");
+                               json_contenido_pedido=new JSONArray(strContenido);
+                               for (int i2=0;i2<json_contenido_pedido.length();i2++){
+                                   JSONObject jsonObject2 = json_contenido_pedido.getJSONObject(i2);
+                                   Log.e("contenido", String.valueOf(jsonObject2));
+                                   String strID=jsonObject2.getString("id");
+                                   String strNombre = jsonObject2.getString("nombre");
+                                   String strCantidad = jsonObject2.getString("cantidad");
+                                   String strTotal = jsonObject2.getString("total");
+                                   String strPrecio2 = jsonObject2.getString("precio");
+                                   String strExtras = jsonObject2.getString("extras");
+                                   String strNota_mesero=jsonObject2.getString("nota_mesero");
 
+                                   Log.e("nombre",strNombre);
+                                   Log.e("cantidad",strCantidad);
+                                   Log.e("total",strTotal);
+                                   Log.e("precio2",strPrecio2);
+                                   Log.e("extras",strExtras);
+                                   Log.e("notaMesero",strNota_mesero);
+                                   listaContenidoPedidos.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero));
+                               }
+                               adapterContenidoPedido=new AdapterContenidoPedido(listaContenidoPedidos);
+                               lista_cocina_recycler.setAdapter(adapterContenidoPedido);
                                String strFecha_entrega = jsonObject.getString("fecha_entrega");
                                String strFecha_final = jsonObject.getString("fecha_final");
 
-                               listaPedidosCocinaRecyclers.add(new ListaPedidosCocinaRecycler(strId,strMesa,strComanda,strPrecio,strFecha_ingreso,strId_mesero,strMecero,strEstado,strContenido,strNotaMesero));
                                Log.e("idm",strId);
-                               Log.e("idmesero",strId_mesero);
-                               Log.e("contenidos",strContenido);
-                               Log.e("notamesero",strNotaMesero);
+
 
                            }
 
-                           adapterPedidosCocina=new AdapterPedidosCocina(listaPedidosCocinaRecyclers);
-                           lista_cocina_recycler.setAdapter(adapterPedidosCocina);
+
                            //recycler_movies.scrollToPosition(0);
 
 
@@ -160,7 +176,7 @@ public class Estacion extends AppCompatActivity {
        };
        requestQueue.add(request);
    }
-   public void verificar_detalle_pedido(String id_pedido){
+ /*  public void verificar_detalle_pedido(String id_pedido){
         caja_cocina_pedidos_recycler.setVisibility(View.GONE);
        caja_detalle_pedido.setVisibility(View.VISIBLE);
        id_pedido_actual=id_pedido;
@@ -200,9 +216,9 @@ public class Estacion extends AppCompatActivity {
            Log.e("errorRespuesJSON", String.valueOf(e));
        }
 
-   }
+   }*/
    public void comenzarPreparacion(String id_cocina){
-       id_contenido_actual=id_contenido;
+       /*id_contenido_actual=id_contenido;
        notaMesero_actual=notaMesero;
        caja_pedido_cliente.setVisibility(View.GONE);
        caja_lista_pedidos_recycler.setVisibility(View.VISIBLE);
@@ -225,7 +241,7 @@ public class Estacion extends AppCompatActivity {
        }
        lista_pedidos_recycler.setAdapter(adapterListaPedidos);
        adapterListaEspera=new AdapterListaPedidos(listaPedidosAsignados);
-       lista_espera_recycler.setAdapter(adapterListaEspera);
+       lista_espera_recycler.setAdapter(adapterListaEspera);*/
 
 
 

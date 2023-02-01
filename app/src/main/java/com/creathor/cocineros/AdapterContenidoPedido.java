@@ -49,8 +49,6 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         total= contenidoPedidorecycler.get(position).getTotal();
         precio= contenidoPedidorecycler.get(position).getPrecio();
         extras= contenidoPedidorecycler.get(position).getExtras();
-        imagen= contenidoPedidorecycler.get(position).getImagen();
-        seccion= contenidoPedidorecycler.get(position).getSeccion();
         strNotaMesero=contenidoPedidorecycler.get(position).getNota_mesero();
         // fecha_final= pedidosrecycler.get(position).getFecha_final();
 
@@ -60,9 +58,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         holder.totl.setText(total);
         holder.price.setText(precio);
         holder.extrs.setText(extras);
-        holder.image.setText(imagen);
         holder.nota_meser.setText(strNotaMesero);
-        holder.section.setText(seccion);
         //holder.date_end.setText(fecha_final);
         holder.send_kitchen.setOnClickListener(new View.OnClickListener() {
             @Override

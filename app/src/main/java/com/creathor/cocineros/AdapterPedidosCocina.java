@@ -91,7 +91,7 @@ public void onClick(View view) {
         int posicion=holder.getAdapterPosition();
         id = pedidosCocinaRecycler.get(posicion).getId();
         Log.e("id","2"+id);
-        ((Estacion)context).verificar_detalle_pedido(id);
+/*        ((Estacion)context).verificar_detalle_pedido(id);*/
 
 
 
@@ -115,7 +115,7 @@ public class ViewHolderRecycler extends RecyclerView.ViewHolder {
 
     public ViewHolderRecycler(View itemView) {
         super(itemView);
-        id_food =(TextView)itemView.findViewById(R.id.id);
+      /*  id_food =(TextView)itemView.findViewById(R.id.id);
         verify_order =(TextView)itemView.findViewById(R.id.verificar_detalle_pedido);
         rech_pedido =(TextView)itemView.findViewById(R.id.rechazar_pedido);
         mes =(TextView)itemView.findViewById(R.id.mesa);
@@ -124,7 +124,7 @@ public class ViewHolderRecycler extends RecyclerView.ViewHolder {
         date_star =(TextView)itemView.findViewById(R.id.fecha_ingreso);
         mecer_asigned =(TextView)itemView.findViewById(R.id.mecero_asignado);
         id_meser=itemView.findViewById(R.id.id_mesero);
-        statePedido=itemView.findViewById(R.id.estadoPedido);
+        statePedido=itemView.findViewById(R.id.estadoPedido);*/
         box_decisiones = (LinearLayout) itemView.findViewById(R.id.caja_decisiones);
 
 

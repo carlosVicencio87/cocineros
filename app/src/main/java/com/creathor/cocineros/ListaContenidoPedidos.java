@@ -46,7 +46,7 @@ public class ListaContenidoPedidos extends AppCompatActivity {
 
 
 
-    public ListaContenidoPedidos(String id_content, String name, String cant, String totl, String price,String extrs,String image,String section,String note_mesero){
+    public ListaContenidoPedidos(String id_content, String name, String cant, String totl, String price,String extrs,String note_mesero){
 
         this.id =id_content;
         this.nombre=name;
@@ -54,8 +54,6 @@ public class ListaContenidoPedidos extends AppCompatActivity {
         this.total=totl;
         this.precio=price;
         this.extras =extrs;
-        this.imagen=image;
-        this.seccion=section;
         this.nota_mesero=note_mesero;
 
        /* this.fecha_entrega=date_entrega;
