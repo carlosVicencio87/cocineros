@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -30,8 +29,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Estacion extends AppCompatActivity {
+
+    private ExecutorService executorService;
     private LinearLayout caja_cocina_pedidos_recycler,caja_recycler_cocina;
     private ConstraintLayout caja_detalle_pedido;
     private RecyclerView lista_cocina_recycler,contenido_pedido_recycler;
@@ -40,12 +43,12 @@ public class Estacion extends AppCompatActivity {
     private AdapterContenidoPedido adapterContenidoPedido;
     private ArrayList <ListaContenidoPedidos> listaContenidoPedidos;
     private SharedPreferences id_SesionSher,idSher,nombreCocineroSher;
-    private String idSesion,id_mesero,cocineroAsignado,id_pedido_actual,strContenido,strNotaMesero;
+    private String idSesion,id_mesero,cocineroAsignado,id_pedido_actual,strContenido,strEstatus,id_encontrada,strId_mesero,strMecero, strIdPedido,strIdProducto,id_producto2;
     private static String SERVIDOR_CONTROLADOR;
     private Context context;
     private Estacion activity;
     private JSONArray json_pedidos_cocina,json_contenido_pedido;
-
+    private int indice_actualStr;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,7 @@ public class Estacion extends AppCompatActivity {
         lista_cocina_recycler=findViewById(R.id.lista_cocina_recycler);
         caja_detalle_pedido=findViewById(R.id.caja_detalle_pedido);
         contenido_pedido_recycler=findViewById(R.id.contenido_pedido_recycler);
+        executorService= Executors.newSingleThreadExecutor();
 
         activity = this;
         context=this;
@@ -101,7 +105,7 @@ public class Estacion extends AppCompatActivity {
 
                                //Log.e("nombreMovies", String.valueOf(jsonObject));
 
-                               String strId = jsonObject.getString("id");
+                               String strIdPedido = jsonObject.getString("id");
                                String strMesa = jsonObject.getString("mesa");
                                String strComanda = jsonObject.getString("comanda");
                                String strPrecio= jsonObject.getString("precio");
@@ -122,6 +126,13 @@ public class Estacion extends AppCompatActivity {
                                    String strPrecio2 = jsonObject2.getString("precio");
                                    String strExtras = jsonObject2.getString("extras");
                                    String strNota_mesero=jsonObject2.getString("nota_mesero");
+                                   String strEstatus=jsonObject2.getString("estatus");
+                                   Log.e("estatus",strEstatus);
+
+                                   if (strEstatus.equals(" ")){
+                                       listaContenidoPedidos.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
+
+                                   }
 
                                    Log.e("nombre",strNombre);
                                    Log.e("cantidad",strCantidad);
@@ -129,14 +140,13 @@ public class Estacion extends AppCompatActivity {
                                    Log.e("precio2",strPrecio2);
                                    Log.e("extras",strExtras);
                                    Log.e("notaMesero",strNota_mesero);
-                                   listaContenidoPedidos.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero));
                                }
                                adapterContenidoPedido=new AdapterContenidoPedido(listaContenidoPedidos);
                                lista_cocina_recycler.setAdapter(adapterContenidoPedido);
                                String strFecha_entrega = jsonObject.getString("fecha_entrega");
                                String strFecha_final = jsonObject.getString("fecha_final");
 
-                               Log.e("idm",strId);
+                               Log.e("idm", strIdPedido);
 
 
                            }
@@ -176,74 +186,109 @@ public class Estacion extends AppCompatActivity {
        };
        requestQueue.add(request);
    }
- /*  public void verificar_detalle_pedido(String id_pedido){
-        caja_cocina_pedidos_recycler.setVisibility(View.GONE);
-       caja_detalle_pedido.setVisibility(View.VISIBLE);
-       id_pedido_actual=id_pedido;
 
-       Log.e("id_activyty",""+id_pedido);
+   public void enviarIndiceConNota(int indice_actual,String id_producto,String estatus,String idMeser,String meseroAsignd, String idPedid){
+
+       Log.e("id_contenido","s"+id_producto);
+       Log.e("estatus",estatus);
+       Log.e("idMeser",idMeser);
+       Log.e("idPedid",idPedid);
+
+       Log.e("meseroAsignd",meseroAsignd);
+       Log.e("indice", String.valueOf(indice_actual));
+       strId_mesero=idMeser;
+       strMecero=meseroAsignd;
+       indice_actualStr=indice_actual;
+       strEstatus=estatus;
+       id_pedido_actual=idPedid;
+       id_producto2=id_producto;
+       Log.e("idContenido",id_producto2);
+       Log.e("estatus",strEstatus);
+       Log.e("idmesero",strId_mesero);
+       Log.e("mesero",strMecero);
+       Log.e("idPedido",id_pedido_actual);
+       Log.e("estatus", String.valueOf(indice_actual));
        try {
-           json_contenido_pedido=new JSONArray(strContenido);
-           for(int i=0;i<json_contenido_pedido.length();i++){
-               JSONObject jsonObject = json_contenido_pedido.getJSONObject(i);
-               Log.e("jsonObject2:",""+jsonObject);
-               String strId = jsonObject.getString("id");
-               String strNombre = jsonObject.getString("nombre");
-               String strCantidad = jsonObject.getString("cantidad");
-               String strTotal= jsonObject.getString("total");
-               String strPrecio = jsonObject.getString("precio");
-               String strExtras=jsonObject.getString("extras");
-               String strImagen=jsonObject.getString("imagen");
-               String strSeccion=jsonObject.getString("seccion");
-
-               Log.e("ID",strId);
-               Log.e("NOMBRE",strNombre);
-               Log.e("CANTIDAD",strCantidad);
-               Log.e("TOTAL",strTotal);
-               Log.e("PRECIO",strPrecio);
-               Log.e("EXTRAS",strExtras);
-               Log.e("IMAGEN",strImagen);
-               Log.e("SECCION",strSeccion);
-               listaContenidoPedidos.add(new ListaContenidoPedidos(strId,strNombre,strCantidad,strTotal,strPrecio,strExtras,strImagen,strSeccion,strNotaMesero));
-
-
+           for (int i=0;i<json_pedidos_cocina.length();i++){
+               JSONObject jsonObject = json_pedidos_cocina.getJSONObject(i);
+               Log.e("todos los pedidos1", String.valueOf(jsonObject));
+               String strIdPedido = jsonObject.getString("id");
+              Log.e("strIdsPEDIDOS",strIdPedido);
+              if (strIdPedido==id_pedido_actual){
+                  String strContendio = jsonObject.getString("contenido");
+                  Log.e("strIdsContenido",strContendio);
+                  json_contenido_pedido=new JSONArray(strContendio);
+                  for (int i2=0;i2<json_contenido_pedido.length();i2++){
+                      JSONObject jsonObject2 = json_contenido_pedido.getJSONObject(i2);
+                      Log.e("productos individuales", String.valueOf(jsonObject2));
+                      strIdProducto = jsonObject2.getString("id");
+                      Log.e("idCiclada",strIdProducto);
+                      Log.e("idCiclada",id_producto2);
+                      String strNombreProducto = jsonObject2.getString("nombre");
+                      if (strIdProducto.equals(id_producto2)){
+                          String strEstatus2 = jsonObject2.getString("estatus");
+                          Log.e("esta",strEstatus2);
+                           jsonObject2.put("estatus",strEstatus);
+                          Log.e("aaaaa",jsonObject2.get("estatus").toString());
+                          strContenido= String.valueOf(json_contenido_pedido);
+                          Log.e("nuevoContenido",strContenido);
+                          executorService.execute(new Runnable() {
+                              @Override
+                              public void run() {
+                                  actualizar_pedido_cocina();
+                                  Log.e("se envio a cocina","revisar cocina");
+                              }
+                          });
+                      }
+                  }
+              }
            }
-           adapterContenidoPedido=new AdapterContenidoPedido(listaContenidoPedidos);
-           contenido_pedido_recycler.setAdapter(adapterContenidoPedido);
-           Log.e("jsonContendio",""+json_contenido_pedido);
 
-       } catch (JSONException e) {
-           Log.e("errorRespuesJSON", String.valueOf(e));
+
+       } catch (Exception e) {
+           e.printStackTrace();
        }
-
-   }*/
-   public void comenzarPreparacion(String id_cocina){
-       /*id_contenido_actual=id_contenido;
-       notaMesero_actual=notaMesero;
-       caja_pedido_cliente.setVisibility(View.GONE);
-       caja_lista_pedidos_recycler.setVisibility(View.VISIBLE);
-       for (int i=0;i<listaPedidosRecyclers.size();i++){
-           String id_tmp=listaPedidosRecyclers.get(i).getId();
-
-           if(id_tmp.equals(id_pedido_actual)){
-               id_encontrada=listaPedidosRecyclers.get(i).getId();
-               listaPedidosRecyclers.remove(i);
-
-
-               executorService.execute(new Runnable() {
-                   @Override
-                   public void run() {
-                       enviar_pedido_cocina();
-                       Log.e("entnedi_señor_calamardo","y esto igual");
-                   }
-               });
-           }
-       }
-       lista_pedidos_recycler.setAdapter(adapterListaPedidos);
-       adapterListaEspera=new AdapterListaPedidos(listaPedidosAsignados);
-       lista_espera_recycler.setAdapter(adapterListaEspera);*/
-
 
 
    }
+    public void actualizar_pedido_cocina()
+    {
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+            StringRequest request = new StringRequest(Request.Method.POST,  SERVIDOR_CONTROLADOR+"actualizar_pedido_cocina.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("respuesta4:",response);
+                        if(response.equals("actualizado")){
+                            Log.e("respuesta5:", String.valueOf(indice_actualStr));
+                            listaContenidoPedidos.remove(indice_actualStr);
+                            adapterContenidoPedido=new AdapterContenidoPedido(listaContenidoPedidos);
+                            lista_cocina_recycler.setAdapter(adapterContenidoPedido);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("respuesta4Error:",error + "error");
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> map = new HashMap<>();
+                map.put("id",  id_pedido_actual);
+                map.put("id_mesero", strId_mesero);
+                map.put("meseroAsignado",strMecero);
+                map.put("contenido",strContenido);
+                Log.e("id", id_pedido_actual);
+                Log.e("idmesero",strId_mesero);
+                Log.e("mesero",strMecero);
+                Log.e("contenido",strContenido);
+
+//                Log.e("nota",notaMesero_actual);
+
+                return map;
+            }
+        };
+        requestQueue.add(request);
+    }
 }

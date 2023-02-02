@@ -20,7 +20,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
     ViewHolderRecycler viewholderContenidoPedido;
     private  RecyclerView recyclerView;
     private Context context;
-    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero;
+    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido;
     private TextView aceptar_pedido;
     private EditText nota_mesero;
     private LinearLayout caja_contenedor_velo_mecero;
@@ -50,6 +50,10 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         precio= contenidoPedidorecycler.get(position).getPrecio();
         extras= contenidoPedidorecycler.get(position).getExtras();
         strNotaMesero=contenidoPedidorecycler.get(position).getNota_mesero();
+        strEstatus=contenidoPedidorecycler.get(position).getEstatus();
+        strIdmesero=contenidoPedidorecycler.get(position).getId_mesero();
+        strMeseroAsignado=contenidoPedidorecycler.get(position).getMeseroAsignado();
+        strIdPedido=contenidoPedidorecycler.get(position).getStrIdPedido();
         // fecha_final= pedidosrecycler.get(position).getFecha_final();
 
         holder.id_content.setText(id);
@@ -83,9 +87,23 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
 
                 int posicion=holder.getAdapterPosition();
                 id = contenidoPedidorecycler.get(posicion).getId();
-                Log.e("id","2"+id);
+                Log.e("id","S"+id);
+                nombre=contenidoPedidorecycler.get(posicion).getNombre();
+                strIdPedido=contenidoPedidorecycler.get(posicion).getStrIdPedido();
+                strIdmesero=contenidoPedidorecycler.get(posicion).getId_mesero();
+                strMeseroAsignado=contenidoPedidorecycler.get(posicion).getMeseroAsignado();
+                strEstatus=holder.status;
+                Log.e("name",nombre);
 
-                ((Estacion)context).comenzarPreparacion(id);
+                Log.e("status",strEstatus);
+                Log.e("IDPED",strIdPedido);
+                Log.e("IDMeser",strIdmesero);
+                Log.e("MESER ",strMeseroAsignado);
+
+                int indice_actual=holder.getAdapterPosition();
+                Log.e("indice_de_pedido", String.valueOf(indice_actual));
+                ((Estacion)context).enviarIndiceConNota(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
+
             }
         });
 
@@ -104,7 +122,8 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
     }
     public class ViewHolderRecycler extends RecyclerView.ViewHolder {
         TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser;
-
+        String status="preparado";
+        String id_meser,meserAsignd;
         ConstraintLayout box_content_velo_mecero;
         public ViewHolderRecycler(View itemView) {
             super(itemView);
