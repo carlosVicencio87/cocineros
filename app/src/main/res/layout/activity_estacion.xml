@@ -23,11 +23,11 @@
             android:id="@+id/caja_recycler_cocina"
 
             android:layout_width="match_parent"
-            android:layout_height="650dp"
+            android:layout_height="657dp"
             android:gravity="top"
             android:orientation="vertical"
-            android:visibility="visible"
-            >
+            android:visibility="visible">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

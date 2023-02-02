@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenidoPedido.ViewHolderRecycler>{
+public class AdapterContenidoPedidoPreparado extends RecyclerView.Adapter<AdapterContenidoPedidoPreparado.ViewHolderRecycler>{
     private ArrayList<ListaContenidoPedidos> contenidoPedidorecycler;
-    ViewHolderRecycler viewholderContenidoPedido;
+    AdapterContenidoPedidoPreparado.ViewHolderRecycler viewholderContenidoPedido;
     private  RecyclerView recyclerView;
     private Context context;
     private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido;
@@ -27,21 +27,21 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
     private AdapterContenidoPedido activity;
 
 
-    public AdapterContenidoPedido(ArrayList<ListaContenidoPedidos> contenidoPedidoreycler )
+    public AdapterContenidoPedidoPreparado(ArrayList<ListaContenidoPedidos> contenidoPedidoreycler )
     {
         this.contenidoPedidorecycler =contenidoPedidoreycler;
     }
     @Override
-    public ViewHolderRecycler onCreateViewHolder(ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item2,parent,false);
+    public AdapterContenidoPedidoPreparado.ViewHolderRecycler onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item3,parent,false);
         context=parent.getContext();
         vista.setFocusable(true);
-        return new ViewHolderRecycler(vista);
+        return new AdapterContenidoPedidoPreparado.ViewHolderRecycler(vista);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterContenidoPedido.ViewHolderRecycler holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterContenidoPedidoPreparado.ViewHolderRecycler holder, int position) {
         viewholderContenidoPedido =holder;
         id = contenidoPedidorecycler.get(position).getId();
         nombre= contenidoPedidorecycler.get(position).getNombre();
@@ -63,6 +63,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         holder.price.setText(precio);
         holder.extrs.setText(extras);
         holder.nota_meser.setText(strNotaMesero);
+        holder.status.setText(strEstatus);
         //holder.date_end.setText(fecha_final);
         holder.send_kitchen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +93,6 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
                 strIdPedido=contenidoPedidorecycler.get(posicion).getStrIdPedido();
                 strIdmesero=contenidoPedidorecycler.get(posicion).getId_mesero();
                 strMeseroAsignado=contenidoPedidorecycler.get(posicion).getMeseroAsignado();
-                strEstatus=holder.status;
                 Log.e("name",nombre);
 
                 Log.e("status",strEstatus);
@@ -121,8 +121,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
 
     }
     public class ViewHolderRecycler extends RecyclerView.ViewHolder {
-        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser;
-        String status="preparando";
+        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser,status;
         String id_meser,meserAsignd;
         ConstraintLayout box_content_velo_mecero;
         public ViewHolderRecycler(View itemView) {
@@ -139,7 +138,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
 
             section =(TextView)itemView.findViewById(R.id.seccion);
             nota_meser=itemView.findViewById(R.id.nota_mesero);
-
+            status=itemView.findViewById(R.id.estatus);
             box_content_velo_mecero=itemView.findViewById(R.id.caja_contenedor_velo_mecero);
             confirm_yes=itemView.findViewById(R.id.confirmar_si);
             confirm_no=itemView.findViewById(R.id.confirmar_no);
@@ -148,4 +147,5 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
     }
 
 }
+
 
