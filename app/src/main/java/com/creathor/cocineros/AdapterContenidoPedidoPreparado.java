@@ -69,23 +69,6 @@ public class AdapterContenidoPedidoPreparado extends RecyclerView.Adapter<Adapte
             @Override
             public void onClick(View view) {
 
-                holder.box_content_velo_mecero.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-        holder.confirm_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.box_content_velo_mecero.setVisibility(View.GONE);
-
-            }
-        });
-        holder.confirm_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.box_content_velo_mecero.setVisibility(View.GONE);
-
                 int posicion=holder.getAdapterPosition();
                 id = contenidoPedidorecycler.get(posicion).getId();
                 Log.e("id","S"+id);
@@ -102,10 +85,11 @@ public class AdapterContenidoPedidoPreparado extends RecyclerView.Adapter<Adapte
 
                 int indice_actual=holder.getAdapterPosition();
                 Log.e("indice_de_pedido", String.valueOf(indice_actual));
-                ((Estacion)context).enviarIndiceConNota(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
+                ((Estacion)context).entregarPedidoIndice(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
 
             }
         });
+
 
 
         //holder.list_pedidos.setText(lista_pedidos);
@@ -124,6 +108,7 @@ public class AdapterContenidoPedidoPreparado extends RecyclerView.Adapter<Adapte
         TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser,status;
         String id_meser,meserAsignd;
         ConstraintLayout box_content_velo_mecero;
+
         public ViewHolderRecycler(View itemView) {
             super(itemView);
             id_content =(TextView)itemView.findViewById(R.id.id);
@@ -134,14 +119,12 @@ public class AdapterContenidoPedidoPreparado extends RecyclerView.Adapter<Adapte
             extrs =(TextView)itemView.findViewById(R.id.extras);
             image =(TextView)itemView.findViewById(R.id.imagen);
             solitatio_cancel =(TextView)itemView.findViewById(R.id.solicitar_cancelacion);
-            send_kitchen =(TextView)itemView.findViewById(R.id.comenzar_prepara_cocina);
+            send_kitchen =(TextView)itemView.findViewById(R.id.entregarPedido);
 
             section =(TextView)itemView.findViewById(R.id.seccion);
             nota_meser=itemView.findViewById(R.id.nota_mesero);
             status=itemView.findViewById(R.id.estatus);
-            box_content_velo_mecero=itemView.findViewById(R.id.caja_contenedor_velo_mecero);
-            confirm_yes=itemView.findViewById(R.id.confirmar_si);
-            confirm_no=itemView.findViewById(R.id.confirmar_no);
+
 
         }
     }

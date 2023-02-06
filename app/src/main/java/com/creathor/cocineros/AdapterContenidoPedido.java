@@ -68,23 +68,6 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
             @Override
             public void onClick(View view) {
 
-                holder.box_content_velo_mecero.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-        holder.confirm_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.box_content_velo_mecero.setVisibility(View.GONE);
-
-            }
-        });
-        holder.confirm_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.box_content_velo_mecero.setVisibility(View.GONE);
-
                 int posicion=holder.getAdapterPosition();
                 id = contenidoPedidorecycler.get(posicion).getId();
                 Log.e("id","S"+id);
@@ -104,8 +87,12 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
                 Log.e("indice_de_pedido", String.valueOf(indice_actual));
                 ((Estacion)context).enviarIndiceConNota(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
 
+
+
+
             }
         });
+
 
 
         //holder.list_pedidos.setText(lista_pedidos);
@@ -140,9 +127,6 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
             section =(TextView)itemView.findViewById(R.id.seccion);
             nota_meser=itemView.findViewById(R.id.nota_mesero);
 
-            box_content_velo_mecero=itemView.findViewById(R.id.caja_contenedor_velo_mecero);
-            confirm_yes=itemView.findViewById(R.id.confirmar_si);
-            confirm_no=itemView.findViewById(R.id.confirmar_no);
 
         }
     }
