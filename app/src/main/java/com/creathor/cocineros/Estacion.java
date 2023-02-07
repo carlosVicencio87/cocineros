@@ -37,14 +37,15 @@ import java.util.concurrent.Executors;
 public class Estacion extends AppCompatActivity {
 
     private ExecutorService executorService;
-    private LinearLayout caja_cocina_pedidos_recycler,caja_recycler_cocina,caja_lista_pedidos,caja_lista_espera_recycler,caja_pedidos_espera_l;
+    private LinearLayout caja_cocina_pedidos_recycler,caja_recycler_cocina,caja_lista_pedidos,caja_lista_espera_recycler,caja_pedidos_espera_l,caja_lista_entregados_recycler,caja_pedidos_entrega;
     private ConstraintLayout caja_detalle_pedido,empezarPreparacion,entregarPedido;
-    private RecyclerView lista_cocina_recycler,contenido_pedido_recycler,lista_espera_recycler;
+    private RecyclerView lista_cocina_recycler,contenido_pedido_recycler,lista_espera_recycler,lista_entregados_recycler;
     private AdapterPedidosCocina adapterPedidosCocina;
     private ArrayList <ListaPedidosCocinaRecycler>listaPedidosCocinaRecyclers;
     private AdapterContenidoPedido adapterContenidoPedido;
-    private ArrayList <ListaContenidoPedidos> listaContenidoPedidos,listaContenidoPreparado;
+    private ArrayList <ListaContenidoPedidos> listaContenidoPedidos,listaContenidoPreparado,listaContenidoFinalizado;
     private AdapterContenidoPedidoPreparado adapterContenidoPedidoPreparado;
+    private AdapterContenidoFinalizado adapterContenidoFinalizado;
     private TextView confirmar_comienzo_preparacion,confirmar_no,no_entregar,confirmar_entrega_pedido;
     private SharedPreferences id_SesionSher,idSher,nombreCocineroSher;
     private String idSesion,id_mesero,cocineroAsignado,id_pedido_actual,
@@ -79,6 +80,9 @@ public class Estacion extends AppCompatActivity {
         no_entregar=findViewById(R.id.no_entregar);
         confirmar_comienzo_preparacion=findViewById(R.id.confirmar_comienzo_preparacion);
         confirmar_entrega_pedido=findViewById(R.id.confirmar_entrega_pedido);
+        caja_lista_entregados_recycler=findViewById(R.id.caja_lista_entregados_recycler);
+        caja_pedidos_entrega=findViewById(R.id.caja_pedidos_entrega);
+        lista_entregados_recycler=findViewById(R.id.lista_entregados_recycler);
         activity = this;
         context=this;
         SERVIDOR_CONTROLADOR = new Servidor().getIplocal();
@@ -88,7 +92,8 @@ public class Estacion extends AppCompatActivity {
         contenido_pedido_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
         listaContenidoPreparado=new ArrayList<>();
         lista_espera_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
-
+        listaContenidoFinalizado=new ArrayList<>();
+        lista_entregados_recycler.setLayoutManager(new LinearLayoutManager(Estacion.this,LinearLayoutManager.VERTICAL,false));
         id_SesionSher=getSharedPreferences("Usuario",this.MODE_PRIVATE);
         idSesion= id_SesionSher.getString("idSesion","no hay");
         idSher=getSharedPreferences("Usuario",this.MODE_PRIVATE);
@@ -101,6 +106,7 @@ public class Estacion extends AppCompatActivity {
         caja_pedidos_espera_l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                caja_lista_entregados_recycler.setVisibility(View.GONE);
                 caja_lista_espera_recycler.setVisibility(View.VISIBLE);
                 caja_recycler_cocina.setVisibility(View.GONE);
                 pedir_pedidos();
@@ -109,8 +115,18 @@ public class Estacion extends AppCompatActivity {
         caja_lista_pedidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                caja_lista_entregados_recycler.setVisibility(View.GONE);
                 caja_lista_espera_recycler.setVisibility(View.GONE);
                 caja_recycler_cocina.setVisibility(View.VISIBLE);
+                pedir_pedidos();
+            }
+        });
+        caja_pedidos_entrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                caja_lista_espera_recycler.setVisibility(View.GONE);
+                caja_recycler_cocina.setVisibility(View.GONE);
+                caja_lista_entregados_recycler.setVisibility(View.VISIBLE);
                 pedir_pedidos();
             }
         });
@@ -278,7 +294,9 @@ public class Estacion extends AppCompatActivity {
 
                                    if (strEstatus.equals("preparando")){
                                        listaContenidoPreparado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
-
+                                   }
+                                   if (strEstatus.equals("preparado")){
+                                       listaContenidoFinalizado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
                                    }
                                    Log.e("nombre",strNombre);
                                    Log.e("cantidad",strCantidad);
@@ -291,6 +309,8 @@ public class Estacion extends AppCompatActivity {
                                lista_cocina_recycler.setAdapter(adapterContenidoPedido);
                                adapterContenidoPedidoPreparado=new AdapterContenidoPedidoPreparado(listaContenidoPreparado);
                                lista_espera_recycler.setAdapter(adapterContenidoPedidoPreparado);
+                               adapterContenidoFinalizado=new AdapterContenidoFinalizado(listaContenidoFinalizado);
+                               lista_entregados_recycler.setAdapter(adapterContenidoFinalizado);
                                String strFecha_entrega = jsonObject.getString("fecha_entrega");
                                String strFecha_final = jsonObject.getString("fecha_final");
 
