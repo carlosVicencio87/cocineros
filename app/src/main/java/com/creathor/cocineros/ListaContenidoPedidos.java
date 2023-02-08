@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ListaContenidoPedidos extends AppCompatActivity {
 
-    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,nota_mesero,estatus,id_mesero,meseroAsignado,strIdPedido;
+    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,nota_mesero,estatus,id_mesero,meseroAsignado,strIdPedido,fecha_ingreso;
 
 
 
@@ -30,6 +30,7 @@ public class ListaContenidoPedidos extends AppCompatActivity {
     public String getMeseroAsignado(){return  meseroAsignado;}
 
     public String getStrIdPedido() {return strIdPedido;}
+    public  String getFecha_ingreso(){return  fecha_ingreso;}
     /* public String getFecha_entrega() { return fecha_entrega; }
     public String getFecha_final() { return fecha_final;}*/
 
@@ -48,13 +49,15 @@ public class ListaContenidoPedidos extends AppCompatActivity {
     public void  setId_mesero(String id_mesero){this.id_mesero=id_mesero;}
     public void setMeseroAsignado(String meseroAsignado) {this.meseroAsignado = meseroAsignado;}
 
+    public void setFecha_ingreso(String fecha_ingreso) {this.fecha_ingreso = fecha_ingreso;}
+
     public void setStrIdPedido(String strIdPedido) {this.strIdPedido = strIdPedido;}
     /* public void setFecha_entrega(String fecha_entrega) { this.fecha_entrega = fecha_entrega;}
     public void setFecha_final(String fecha_final) {this.fecha_final = fecha_final;}*/
 
 
 
-    public ListaContenidoPedidos(String id_content, String name, String cant, String totl, String price,String extrs,String note_mesero,String status,String id_meser,String meserAsignad,String id_pedid){
+    public ListaContenidoPedidos(String id_content, String name, String cant, String totl, String price,String extrs,String note_mesero,String status,String id_meser,String meserAsignad,String id_pedid,String date_star){
 
         this.id =id_content;
         this.nombre=name;
@@ -67,6 +70,7 @@ public class ListaContenidoPedidos extends AppCompatActivity {
         this.id_mesero=id_meser;
         this.meseroAsignado=meserAsignad;
         this.strIdPedido=id_pedid;
+        this.fecha_ingreso=date_star;
        /* this.fecha_entrega=date_entrega;
         this.fecha_final=date_end;*/
 

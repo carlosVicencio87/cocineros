@@ -248,6 +248,8 @@ public class Estacion extends AppCompatActivity {
                    public void onResponse(String response) {
                        listaContenidoPedidos.clear();
                        listaContenidoPreparado.clear();
+                       listaContenidoFinalizado.clear();
+
                        String limpio=response;
                        Log.e("jsonObject33333:",""+response);
                        Log.e("jsonObject333333:",""+limpio);
@@ -288,15 +290,15 @@ public class Estacion extends AppCompatActivity {
                                    Log.e("estatus",strEstatus);
 
                                    if (strEstatus.equals(" ")){
-                                       listaContenidoPedidos.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
+                                       listaContenidoPedidos.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido,strFecha_ingreso));
 
                                    }
 
                                    if (strEstatus.equals("preparando")){
-                                       listaContenidoPreparado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
+                                       listaContenidoPreparado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido,strFecha_ingreso));
                                    }
                                    if (strEstatus.equals("preparado")){
-                                       listaContenidoFinalizado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido));
+                                       listaContenidoFinalizado.add(new ListaContenidoPedidos(strID,strNombre,strCantidad,strTotal,strPrecio2,strExtras,strNota_mesero,strEstatus,strId_mesero,strMecero,strIdPedido,strFecha_ingreso));
                                    }
                                    Log.e("nombre",strNombre);
                                    Log.e("cantidad",strCantidad);

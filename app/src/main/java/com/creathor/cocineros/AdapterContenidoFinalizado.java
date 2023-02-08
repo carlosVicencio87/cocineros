@@ -20,7 +20,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
     AdapterContenidoFinalizado.ViewHolderRecycler viewholderContenidoPedido;
     private  RecyclerView recyclerView;
     private Context context;
-    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido;
+    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido,fecha_ingreso;
     private TextView aceptar_pedido;
     private EditText nota_mesero;
     private LinearLayout caja_contenedor_velo_mecero;
@@ -33,7 +33,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
     }
     @Override
     public AdapterContenidoFinalizado.ViewHolderRecycler onCreateViewHolder(ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item3,parent,false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item4,parent,false);
         context=parent.getContext();
         vista.setFocusable(true);
         return new AdapterContenidoFinalizado.ViewHolderRecycler(vista);
@@ -54,6 +54,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
         strIdmesero=contenidoPedidorecycler.get(position).getId_mesero();
         strMeseroAsignado=contenidoPedidorecycler.get(position).getMeseroAsignado();
         strIdPedido=contenidoPedidorecycler.get(position).getStrIdPedido();
+        fecha_ingreso=contenidoPedidorecycler.get(position).getFecha_ingreso();
         // fecha_final= pedidosrecycler.get(position).getFecha_final();
 
         holder.id_content.setText(id);
@@ -64,6 +65,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
         holder.extrs.setText(extras);
         holder.nota_meser.setText(strNotaMesero);
         holder.status.setText(strEstatus);
+        holder.date_star.setText(fecha_ingreso);
         //holder.date_end.setText(fecha_final);
         holder.send_kitchen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +87,8 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
 
                 int indice_actual=holder.getAdapterPosition();
                 Log.e("indice_de_pedido", String.valueOf(indice_actual));
-                ((Estacion)context).entregarPedidoIndice(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
-
+             /*   ((Estacion)context).entregarPedidoIndice(indice_actual,id,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido);
+*/
             }
         });
 
@@ -105,7 +107,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
 
     }
     public class ViewHolderRecycler extends RecyclerView.ViewHolder {
-        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser,status;
+        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser,status,date_star;
         String id_meser,meserAsignd;
         ConstraintLayout box_content_velo_mecero;
 
@@ -120,7 +122,7 @@ public class AdapterContenidoFinalizado extends RecyclerView.Adapter<AdapterCont
             image =(TextView)itemView.findViewById(R.id.imagen);
             solitatio_cancel =(TextView)itemView.findViewById(R.id.solicitar_cancelacion);
             send_kitchen =(TextView)itemView.findViewById(R.id.entregarPedido);
-
+            date_star=itemView.findViewById(R.id.fecha_ingreso);
             section =(TextView)itemView.findViewById(R.id.seccion);
             nota_meser=itemView.findViewById(R.id.nota_mesero);
             status=itemView.findViewById(R.id.estatus);

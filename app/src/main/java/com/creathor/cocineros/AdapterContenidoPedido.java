@@ -20,7 +20,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
     ViewHolderRecycler viewholderContenidoPedido;
     private  RecyclerView recyclerView;
     private Context context;
-    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido;
+    private String id,nombre,cantidad,total,precio,extras,imagen,seccion,strNotaMesero,strEstatus,strIdmesero,strMeseroAsignado,strIdPedido,fecha_ingreso;
     private TextView aceptar_pedido;
     private EditText nota_mesero;
     private LinearLayout caja_contenedor_velo_mecero;
@@ -54,6 +54,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         strIdmesero=contenidoPedidorecycler.get(position).getId_mesero();
         strMeseroAsignado=contenidoPedidorecycler.get(position).getMeseroAsignado();
         strIdPedido=contenidoPedidorecycler.get(position).getStrIdPedido();
+        fecha_ingreso=contenidoPedidorecycler.get(position).getFecha_ingreso();
         // fecha_final= pedidosrecycler.get(position).getFecha_final();
 
         holder.id_content.setText(id);
@@ -63,6 +64,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
         holder.price.setText(precio);
         holder.extrs.setText(extras);
         holder.nota_meser.setText(strNotaMesero);
+        holder.date_star.setText(fecha_ingreso);
         //holder.date_end.setText(fecha_final);
         holder.send_kitchen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +110,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
 
     }
     public class ViewHolderRecycler extends RecyclerView.ViewHolder {
-        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser;
+        TextView id_content,name,cant,totl,price,extrs,image,section,solitatio_cancel,send_kitchen,confirm_yes,confirm_no,nota_meser,date_star;
         String status="preparando";
         String id_meser,meserAsignd;
         ConstraintLayout box_content_velo_mecero;
@@ -123,7 +125,7 @@ public class AdapterContenidoPedido extends RecyclerView.Adapter<AdapterContenid
             image =(TextView)itemView.findViewById(R.id.imagen);
             solitatio_cancel =(TextView)itemView.findViewById(R.id.solicitar_cancelacion);
             send_kitchen =(TextView)itemView.findViewById(R.id.comenzar_prepara_cocina);
-
+            date_star=itemView.findViewById(R.id.fecha_ingreso);
             section =(TextView)itemView.findViewById(R.id.seccion);
             nota_meser=itemView.findViewById(R.id.nota_mesero);
 
